@@ -1,0 +1,71 @@
+version: "3.8"
+
+services:
+  eureka-server:
+    image: crmcloud/eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - crmcloud-network
+
+  config-server:
+    image: crmcloud/config-server
+    ports:
+      - "8888:8888"
+    depends_on:
+      - eureka-server
+    networks:
+      - crmcloud-network
+
+  user-service:
+    image: crmcloud/user-service
+    ports:
+      - "8060:8060"
+    depends_on:
+      - eureka-server
+      - config-server
+
+    networks:
+      - crmcloud-network
+
+  event-service:
+    image: crmcloud/event-service
+    ports:
+      - "8070:8070"
+    depends_on:
+      - config-server
+      - eureka-server
+
+    networks:
+      - crmcloud-network
+
+  edge-server:
+    image: crmcloud/edge-server
+    ports:
+      - "8080:8080"
+    depends_on:
+      - config-server
+      - eureka-server
+      - user-service
+      - event-service
+    networks:
+      - crmcloud-network
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - crmcloud-network
+
+  mongodb:
+      image: mongo
+      ports:
+        - "27017:27017"
+      networks:
+        - crmcloud-network
+
+networks:
+ crmcloud-network:
+      external: true

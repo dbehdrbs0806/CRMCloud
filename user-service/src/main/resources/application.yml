@@ -1,0 +1,13 @@
+server:
+  port: 8060
+
+spring:
+  application:
+    name: user-service
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+
