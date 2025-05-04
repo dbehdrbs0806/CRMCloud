@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-// @EnableRabbit
+@EnableRabbit						// RabbitMQ 사용을 위한 활성화
 public class EventServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EventServiceApplication.class, args);

@@ -2,14 +2,14 @@ version: "3.8"
 
 services:
   eureka-server:
-    image: crmcloud/eureka-server
+    image: crmcloud_eureka-server
     ports:
       - "8761:8761"
     networks:
       - crmcloud-network
 
   config-server:
-    image: crmcloud/config-server
+    image: crmcloud_config-server
     ports:
       - "8888:8888"
     depends_on:
@@ -18,7 +18,7 @@ services:
       - crmcloud-network
 
   user-service:
-    image: crmcloud/user-service
+    image: crmcloud_user-service
     ports:
       - "8060:8060"
     depends_on:
@@ -29,18 +29,24 @@ services:
       - crmcloud-network
 
   event-service:
-    image: crmcloud/event-service
+    image: crmcloud_event-service
     ports:
       - "8070:8070"
     depends_on:
       - config-server
       - eureka-server
-
+      - rabbitmq
+    environment:
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: admin
+      SPRING_RABBITMQ_PASSWORD: "000001"
+      QUEUE_NAME: events-queue
     networks:
       - crmcloud-network
 
   edge-server:
-    image: crmcloud/edge-server
+    image: crmcloud_edge-server
     ports:
       - "8080:8080"
     depends_on:
@@ -52,20 +58,29 @@ services:
       - crmcloud-network
 
   rabbitmq:
-    image: rabbitmq:management
+    image: rabbitmq:3-management
     ports:
       - "5672:5672"
       - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: "000001"
+      RABBITMQ_LOOPBACK_USERS: none
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
     networks:
       - crmcloud-network
 
   mongodb:
-      image: mongo
-      ports:
-        - "27017:27017"
-      networks:
-        - crmcloud-network
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - crmcloud-network
 
 networks:
  crmcloud-network:
       external: true
+
+volumes:
+  rabbitmq_data:

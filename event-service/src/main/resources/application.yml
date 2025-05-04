@@ -4,6 +4,17 @@ server:
 spring:
   application:
     name: event-service
+
+  rabbitmq:
+    host: ${SPRING_RABBITMQ_HOST:rabbitmq}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    username: ${SPRING_RABBITMQ_USERNAME:admin}
+    password: ${SPRING_RABBITMQ_PASSWORD:000001}
+
+queue:
+  name: ${QUEUE_NAME:events-queue}
+# rabbitMQ 환경변수 사용 => dokcer-compose.yml에서 변경
+
 eureka:
   client:
     fetch-registry: true
