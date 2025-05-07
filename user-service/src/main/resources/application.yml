@@ -4,6 +4,14 @@ server:
 spring:
   application:
     name: user-service
+  data:
+    mongodb:
+      host: mongodb
+      port: 27017
+      database: crm_database
+      username: admin
+      password: 000000
+
 eureka:
   client:
     fetch-registry: true
