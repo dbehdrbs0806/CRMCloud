@@ -14,11 +14,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 public class Phone {
 
-    @Id
-    private String id;
-
-    @Indexed
+    @Indexed(unique = true)
     private String phoneNumber;
 
     private String deviceSerialNumber;
+
+    
 }
