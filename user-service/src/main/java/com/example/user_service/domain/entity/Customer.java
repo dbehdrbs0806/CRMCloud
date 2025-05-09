@@ -24,11 +24,8 @@ public class Customer {
     @Indexed(unique = true) // 중복방지
     private String email;
 
-    @Indexed(unique = true)
-    private String username;
-
     private String password;
 
     // @DBRef  MongoDB의 1:1 참조
-    private Phone phone;
+    private Phone phone;            // 내장 문서
 }
