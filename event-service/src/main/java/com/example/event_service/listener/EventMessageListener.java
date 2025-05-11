@@ -4,6 +4,7 @@ package com.example.event_service.listener;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
+/*
 @Component
 public class EventMessageListener {
 
@@ -12,4 +13,4 @@ public class EventMessageListener {
         System.out.println("📩 Received message: " + message);
     }
 
-}
+}*/
