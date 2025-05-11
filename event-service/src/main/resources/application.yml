@@ -12,8 +12,9 @@ spring:
     password: ${SPRING_RABBITMQ_PASSWORD:000001}
 
 queue:
-  name: ${QUEUE_NAME:events-queue}
-# rabbitMQ 환경변수 사용 => dokcer-compose.yml에서 변경
+  customer: ${QUEUE_NAME_CUSTOMER:customer-queue}
+  message: ${QUEUE_NAME_MESSAGE:message-queue}
+
 
 eureka:
   client:

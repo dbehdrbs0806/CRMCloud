@@ -24,7 +24,15 @@ services:
     depends_on:
       - eureka-server
       - config-server
-
+      - mongodb
+      - rabbitmq
+    environment:
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: admin
+      SPRING_RABBITMQ_PASSWORD: "000001"
+      QUEUE_NAME_CUSTOMER: customer-queue
+      QUEUE_NAME_MESSAGE: message-queue
     networks:
       - crmcloud-network
 
@@ -41,7 +49,8 @@ services:
       SPRING_RABBITMQ_PORT: 5672
       SPRING_RABBITMQ_USERNAME: admin
       SPRING_RABBITMQ_PASSWORD: "000001"
-      QUEUE_NAME: events-queue
+      QUEUE_NAME_CUSTOMER: customer-queue
+      QUEUE_NAME_MESSAGE: message-queue
     networks:
       - crmcloud-network
 

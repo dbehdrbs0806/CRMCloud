@@ -9,14 +9,13 @@ spring:
     gateway:
       routes:
         - id: user-service
-        - uri: lb://user-service
+          uri: lb://user-service
           predicates:
-            - Path=/user-service/**
-
+            - Path=/customers/**
         - id: event-service
-        - uri: lb://event-service
+          uri: lb://event-service
           predicates:
-            - Path=/event-service/**
+            - Path=/messages/**
 
 eureka:
   client:
