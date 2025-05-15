@@ -18,6 +18,14 @@ queue:
   customer: ${QUEUE_NAME_CUSTOMER:customer-queue}
   message: ${QUEUE_NAME_MESSAGE:message-queue}
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  endpoint:
+    health:
+      show-details: always
 
 eureka:
   client:

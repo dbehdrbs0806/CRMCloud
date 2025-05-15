@@ -1,0 +1,42 @@
+apiVersion: apps/v1                         # 어떤 apiVersion에 속해 그룹을 사용하는지 Deployment: apps/v1
+kind: Deployment                            # Deployment
+metadata:
+  name: user-service                        # 이름
+  labels:
+    app: user-service                       # 라벨
+spec:
+  replicas: 2                               # replicas: 파드 생성 개수
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user-service
+          image: crmcloud_user-service:latest  # 실제 이미지로 교체
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8060             # Spring Boot의 컨테이너 내부 port
+          livenessProbe:                      # 파드의 헬스체크 부분
+            httpGet:
+              path: /actuator/health
+              port: 8060
+            initialDelaySeconds: 10           # 컨테이너 시작 후 처음 체크까지 대기 시간
+            periodSeconds: 10                 # 시작 이후 몇초마다 체크할지
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8060
+            initialDelaySeconds: 5
+            periodSeconds: 5
+
+          resources:                          # HPA 사용을 위한 하드웨어 자원 설정
+            requests:                         # 최소 요구
+              cpu: "100m"                     # 0.1 CPU
+              memory: "128Mi"                 # 128 MB
+            limits:                           # 최대 요구
+              cpu: "500m"                     # 0.5 CPU
+              memory: "512Mi"                 # 512 MB
