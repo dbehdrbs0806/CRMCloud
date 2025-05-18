@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: event-service
+  name: eureka-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: event-service
+      app: eureka-server
   template:
     metadata:
       labels:
-        app: event-service
+        app: eureka-server
     spec:
       containers:
-        - name: event-service
-          image: crmcloud_event-service:latest
+        - name: eureka-server
+          image: crmcloud_eureka-server:latest
           imagePullPolicy: Never
           ports:
-            - containerPort: 8070
+            - containerPort: 8761

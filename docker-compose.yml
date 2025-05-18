@@ -1,5 +1,4 @@
 version: "3.8"
-
 services:
   eureka-server:
     image: crmcloud_eureka-server

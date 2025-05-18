@@ -32,7 +32,6 @@ spec:
               port: 8060
             initialDelaySeconds: 5
             periodSeconds: 5
-
           resources:                          # HPA 사용을 위한 하드웨어 자원 설정
             requests:                         # 최소 요구
               cpu: "100m"                     # 0.1 CPU

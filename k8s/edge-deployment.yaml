@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: event-service
+  name: edge-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: event-service
+      app: edge-server
   template:
     metadata:
       labels:
-        app: event-service
+        app: edge-server
     spec:
       containers:
-        - name: event-service
-          image: crmcloud_event-service:latest
+        - name: edge-server
+          image: crmcloud_edge-server:latest
           imagePullPolicy: Never
           ports:
-            - containerPort: 8070
+            - containerPort: 8080
