@@ -1,0 +1,15 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: event-service-scaledobject
+  namespace: default
+spec:
+  scaleTargetRef:
+    name: event-service
+  minReplicaCount: 1
+  maxReplicaCount: 5
+  triggers:
+    - type: rabbitmq
+      metadata:
+        queueName: customer-queue
+        host: "amqp://admin:000001@rabbitmq.default.svc.cluster.local:5672/"
